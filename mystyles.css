@@ -1,0 +1,392 @@
+body{
+	font-family: ProximaNova,Arial,Sans-serif;
+}
+
+.home{
+
+}
+
+.navbar-inverse {
+    background-color: black;
+    border-color: #e91d4a;
+	border-bottom-width: 2px;
+}
+
+.menubarpanel{
+	background-color: black;
+	height: 28px;
+}
+
+.imagebannerpanel{
+	display: none;
+}
+
+.wishpanel{
+	height: 300px;
+}
+
+.wishrow{
+    display: flex;
+}
+
+.profileimg{
+    width: 48px;
+    height: 48px;
+    vertical-align: top;
+    margin-right: 5px;	
+}
+.quotepanel{
+	background-color: black !important;
+	height: 75px;
+}
+
+.quotemessage{
+	border-left: 2px solid orange;
+	font-family: 'Roboto Slab', serif;
+	font-size: 16px;
+	color: white;
+}
+
+.paneltitle{
+	font-family: serif;
+    color: #e91d4a;
+    font-size: 45px;
+    font-style: italic;
+}
+
+.wishpanelmessage{
+	background-color: darkcyan;
+    border-radius: 15px;
+    color: whitesmoke;
+    font-style: italic;
+}
+
+.circleimgpanel{
+	background-color: #ff5858;
+}
+
+.img-circle {
+	border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: 25px;
+	border: 3px solid;
+    border-color: whitesmoke;
+}
+
+.footerpanel{
+    background-color: black;
+    color: gray;
+	border-color: #e91d4a;
+    border-bottom-width: 2px;
+}
+
+.footerpanel li {
+	margin: 15px;
+	list-style: none;
+	padding-top: 5px;
+}
+
+.footerrightconer{
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+    align-content: center;
+    display: -webkit-inline-box;
+	margin-left: 5px;
+}
+
+.ctd{
+	width: 100px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+    border: 0px;
+}
+
+.morebtn{
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
+
+
+#slides {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 250px;
+}
+
+#slides ul {
+  list-style: none;
+  width: 100%;
+  height: 250px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+#slides li {
+  width: 100%;
+  height: 250px;
+  float: left;
+  text-align: center;
+  position: relative;
+  font-family: lato, sans-serif;
+}
+
+.btn-bar {
+}
+
+#buttons {
+  padding: 0 0 5px 0;
+}
+
+#buttons a {
+  text-align: center;
+  display: block;
+  font-size: 50px;
+  float: left;
+  outline: 0;
+  margin: 0 60px;
+  color: #e91d4a;
+  text-decoration: none;
+  display: block;
+  padding: 9px;
+  width: 35px;
+}
+
+a#prev:hover,
+a#next:hover {
+  color: #000000;
+  text-shadow: .5px 0px #b14943;
+}
+
+.wishtextslidebox{
+	background-color: white;	
+}
+
+.wishultext{
+	margin:0px;
+	padding:2px;
+	margin-left:5px;
+	float: left;
+}
+
+.wishtext{
+	background-color: #88bd34;
+	color: lightblack;
+    padding: 10px;
+    width: auto;
+    margin-top: 8px;
+    font-size: 11px;
+    list-style: none;
+    border-radius: 5px;
+	width: 345px;
+	line-height: 1.8;
+	margin-bottom: 12px;
+	
+}
+
+.wishmsg{
+	color: white;
+	font-size: 12px;
+	font-family: lato, sans-serif;
+}
+
+.wishcontainerdiv{
+	display: flex;
+}
+
+.wishcontentdiv{
+    display: inline;
+    margin: 5px;
+    padding: 5px;
+	margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.postnewwishbox{
+	margin-top: 7px;
+}
+
+.btn-warning1{
+	background-color: crimson;
+	color: white;
+	font-size: 15px;
+    height: 40px;
+    border-radius: 12px;
+}
+
+.colorboxTitle{
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    font-family: 'Slabo 27px', serif;
+	margin-top: 5px;
+    margin-left: 5px;
+}
+
+.colorbox {
+	float: left; width:50%; height: 50%;
+}
+
+.footerquote{
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 25px;
+    padding: 0px;
+    margin: 0px;
+}
+
+input[type="text"], textarea {
+	background-color: whitesmoke;
+    border: 0px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    width: 98%;
+    color: crimson;
+    font-size: medium;	
+  }
+
+.otpform{
+	margin-top: 10px;
+  }
+  
+.circleok{
+    border: 1px;
+    padding: 7px;
+    border-radius: 100px;
+    background-color: green;
+    color: white;  
+  }
+
+ .otppara{
+    line-height: 2;
+    padding: 2px;	 
+ }
+  
+.errormessage{
+	color: crimson;
+}
+
+.successmessage{
+	color: green;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.refreshicon{
+	padding-top: 50px;
+	padding-right: 30px;
+    color: white;
+    font-size: x-large;
+	cursor: pointer;
+ }
+
+.footerpanel li{
+	cursor: pointer;
+}
+
+.designpanel{
+	font-size: 11px;
+	border-top: 1px solid crimson;
+	color: dimgray;
+}
+
+.designcontent{
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.largeImgContainer{
+	width: 1000px;
+    height: 650px;
+}
+
+.largeImg{
+	max-width: 950px;
+    max-height: 550px;
+	padding-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+/* jssor slider bullet navigator skin 01 css */
+        /*
+        .jssorb01 div           (normal)
+        .jssorb01 div:hover     (normal mouseover)
+        .jssorb01 .av           (active)
+        .jssorb01 .av:hover     (active mouseover)
+        .jssorb01 .dn           (mousedown)
+        */
+        .jssorb01 {
+            position: absolute;
+        }
+        .jssorb01 div, .jssorb01 div:hover, .jssorb01 .av {
+            position: absolute;
+            /* size of bullet elment */
+            width: 12px;
+            height: 12px;
+            filter: alpha(opacity=70);
+            opacity: .7;
+            overflow: hidden;
+            cursor: pointer;
+            border: #000 1px solid;
+        }
+        .jssorb01 div { background-color: gray; }
+        .jssorb01 div:hover, .jssorb01 .av:hover { background-color: #d3d3d3; }
+        .jssorb01 .av { background-color: #fff; }
+        .jssorb01 .dn, .jssorb01 .dn:hover { background-color: #555555; }
+
+        /* jssor slider arrow navigator skin 05 css */
+        /*
+        .jssora05l                  (normal)
+        .jssora05r                  (normal)
+        .jssora05l:hover            (normal mouseover)
+        .jssora05r:hover            (normal mouseover)
+        .jssora05l.jssora05ldn      (mousedown)
+        .jssora05r.jssora05rdn      (mousedown)
+        */
+        .jssora05l, .jssora05r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            background: url('.\\imgs\\img\\a17.png') no-repeat;
+            overflow: hidden;
+        }
+        .jssora05l { background-position: -10px -40px; }
+        .jssora05r { background-position: -70px -40px; }
+        .jssora05l:hover { background-position: -130px -40px; }
+        .jssora05r:hover { background-position: -190px -40px; }
+        .jssora05l.jssora05ldn { background-position: -250px -40px; }
+        .jssora05r.jssora05rdn { background-position: -310px -40px; }
