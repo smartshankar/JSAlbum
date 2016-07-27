@@ -1,0 +1,348 @@
+    <div class="menubarpanel">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+			  <div class="container">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">JS Album Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#">JS</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+				  <ul class="nav navbar-nav">
+					<li class="active"><a href="#Album">Album</a></li>
+					<li><a href="#Wishes">Wishes</a></li>
+					<li><a href="#Events">Events</a></li>
+					<li><a href="#Quotes">Quotes</a></li>
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						<li><a href="#Videos">Videos</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#Highlights">Highlights</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#FunEvents">Fun Events</a></li>
+					  </ul>
+					</li>
+				  </ul>
+				  <ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#SpecialThanks">Special Thanks<span class="sr-only">(current)</span></a></li>
+					<li><a href="#ReachUs">Reach Us</a></li>
+				  </ul>
+				</div>
+			  </div>
+			</nav>
+	  </div>
+
+	<div style="height: 750px; z-index: -1; background-color: goldenrod; background-repeat: round;" [ngStyle]="{'background-image': 'url(' + bannerImg + ')'}" >
+		<div align="right"><span class="glyphicon glyphicon-refresh refreshicon" aria-hidden="true" (click)="refreshBannerImg()" ></span></div>
+	</div>
+	  
+	<div class="wishrowpanel">
+		<div style="height: 350px;">
+			<div style="width: 69%; height: inherit; float: left;">
+				<div class="wishtextslidebox" >
+
+					<div class="wishgreenrows">
+						<div class="wishcontainerdiv">
+							<div class="wishcontentdiv" *ngFor="let r of wishRow1; let i = index;">
+											<div class="wishtext" [style.background-color]="i == 0 ? 'orange' : ''">
+											  <span>
+													<span class="wishmsg"><b>{{r.wishmessage}}</b></span>
+													<br>
+													 - <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>{{r.username}} @ {{r.createdOn}}</b> 
+													 
+											  </span>
+											</div>
+							</div>
+						</div>
+
+						<div class="wishcontainerdiv">
+							<div class="wishcontentdiv" *ngFor="let r of wishRow2">
+											<div class="wishtext">
+											  <span>
+													<span class="wishmsg"><b>{{r.wishmessage}}</b></span>
+													<br>
+													 - <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>{{r.username}} @ {{r.createdOn}}</b> 
+													 
+											  </span>
+											</div>
+							</div>
+						</div>
+
+					
+						<div class="wishcontainerdiv">
+							<div class="wishcontentdiv" *ngFor="let r of wishRow3">
+											<div class="wishtext">
+											  <span>
+													<span class="wishmsg"><b>{{r.wishmessage}}</b></span>
+													<br>
+													 - <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>{{r.username}} @ {{r.createdOn}}</b> 
+													 
+											  </span>
+											</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="btn-bar" style="background-color: red; display: none;">
+					  <div id="buttons">
+						<a id="prev" href="#"><span class="glyphicon glyphicon-chevron-left"></span></a>
+						
+						<a id="next" href="#"><span class="glyphicon glyphicon-chevron-right"></span></a> 
+					  </div>
+					</div>
+				</div>
+				
+				<div class="postnewwishbox">
+					<div align="right" class="morebtn">
+						<button type="button" class="btn btn-warning1" data-toggle="modal" data-target="#myModal" aria-label="Left Align" (click)="clearNewWishForm()">
+						  <span>Share your love & wishes</span>
+						  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+						</button>						
+					</div>
+				</div>
+				
+<!-- Post Wish Modal -->
+					<div id="myModal" class="modal fade" role="dialog" style="background-color: black">
+					  <div class="modal-dialog">
+
+						<!-- Post Wish Modal Content-->
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+							<h2 class="modal-title" style="color: darkcyan;">Wish Message</h2>
+						  </div>
+
+					  <form [ngFormModel]="newwishform" (ngSubmit)="postWish(newwishform.value)">
+						  <div class="modal-body">
+								<div class="wishform">
+									<div>
+										<em class="errormessage" *ngIf="!username.valid && submitAttempt">Your good name...</em>
+									</div>
+									<input type="text" ngControl="username" placeholder="Your lovable name"> <br/>
+									
+									<div>
+										<em class="errormessage" *ngIf="!emailid.valid && submitAttempt">Your email address...</em>
+									</div>
+									<input type="text" ngControl="emailid" placeholder="Email address"> <br/>
+
+									<div>
+										<em class="errormessage" *ngIf="!mobile.valid && submitAttempt">Your mobile number...</em>
+									</div>
+									<input type="text" ngControl="mobile" placeholder="Mobile number" maxlength="10"> <br/>
+
+									<div>
+										<em class="errormessage" *ngIf="!wishmessage.valid && submitAttempt">Your wish message...</em>
+									</div>
+									<input type="text" ngControl="wishmessage" placeholder="Wish message"> <br/>
+								</div>
+								
+								<div class="otpform" *ngIf="isOtpFormEnabled">
+									<h2 class="modal-title" style="color: darkcyan;">One Time Password</h2>
+									<hr>
+										<span class="circleok"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>
+										<span class="otppara">One time password <b style="color: #e91d4a">{{onetimepwd}}</b> has been sent to your email addresss and mobile number. 
+										Please check and input the same to confirm & share it successfully.</span>
+										<input type="text" ngControl="otp" placeholder="One Time Password" maxlength="6" style="width:250px;">
+										<em class="errormessage">{{otpValidateMsg}}</em>
+								</div>								
+						  </div>
+						  <div class="modal-footer">
+								<button type="button" class="btn btn-warning1" aria-label="Left Align" (click)="validateOneTimePassword()" *ngIf="isOtpFormEnabled">
+									  <span>Confirm</span>
+									  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+								</button>
+							<span >	
+								<button type="submit" class="btn btn-warning1" aria-label="Left Align" *ngIf="!isOtpFormEnabled">
+									  <span>Share your wish</span>
+									  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>						
+								<button type="button" class="btn btn-warning1" data-dismiss="modal" aria-label="Left Align">
+									  <span>Close</span>
+									  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+							</span>
+						  </div>
+					</form>
+						  
+						</div>
+
+						</div>
+					</div>				
+				
+			</div>
+			
+			<div style="width: 1px; height: inherit; float: left;"></div>
+			
+			<div class="colorboxpanel" style="width:30%; height: inherit; float: right;" >
+					<div class="colorbox" style="background-color: #e64759;">
+						<div>
+							<h1 class="colorboxTitle">Album</h1>
+						</div>
+					</div>
+					<div class="colorbox" style="background-color: #6b15a1;">
+						<div>
+							<h1 class="colorboxTitle">Wishes</h1>
+						</div>
+					</div>
+					<div class="colorbox" style="background-color: #e4d836;">
+						<div>
+							<h1 class="colorboxTitle">Events</h1>
+						</div>
+					</div>
+					<div class="colorbox" style="background-color: #1abc9c;">
+						<div>
+							<h1 class="colorboxTitle">Quotes</h1>
+						</div>
+					</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="quotepanel">
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+					<blockquote class="quotemessage">
+					  <p>"Do not pray for an easy life, pray for the strength to endure a difficult one."</p>
+					  <footer><cite title="Source Title">Bruce Lee</cite></footer>
+					</blockquote>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+	</div>
+
+	<a name="SpecialThanks"></a>
+	<div style="height: 400px; background-color: #6b15a1; display: none">
+		<div>
+			<h2 style="margin:0px">SpecialThanks</h2>
+		</div>
+	</div>
+	
+	<a name="Album"></a>  
+	<div class="circleimgpanel">
+		<div class="row">
+				<div class="col-sm-12">
+					<div class="circlealbumimgs">
+						<span *ngFor="let i of albumImageList">
+							<a data-toggle="modal" data-target="#largeImageModal"><img class="top img-circle" src="{{i}}" (click)="setLargeAlbumImage(i)" /></a>
+						</span>
+					</div>
+					
+					<div align="right" class="morebtn">
+						<button type="button" class="ctd btn btn-default btn-md" aria-label="Left Align">
+						<span>More </span>
+						  <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+						</button>						
+					</div>
+				</div>
+		</div>
+		
+		
+<!-- View Large Image -->
+					<div id="largeImageModal" class="modal fade" role="dialog" style="background-color: black">
+					  <div class="modal-dialog">
+
+						<!-- Large Image Content-->
+						<div class="modal-content largeImgContainer">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+							<h2 class="modal-title" style="color: darkcyan;">Album Image</h2>
+						  </div>
+						  <div align="center">
+							<img src="{{largeAlbumImg}}" class="largeImg" />
+						  </div>
+						</div>
+
+						</div>
+					</div>
+				
+		
+	</div>
+	
+
+	<a name="Videos"></a>
+	<div style="height: 500px; background-color: white">
+		<h2 style="margin:0px">Videos</h2>
+		<div align="center" style="padding-top:200px;">
+			Under Development...
+		</div>
+	</div>
+
+	<a name="Wishes"></a>
+	<div style="height: 400px; background-color: #6b15a1">
+		<h2 style="margin:0px">Wishes</h2>
+		<div align="center" style="padding-top:200px;">
+			Under Development...
+		</div>
+	</div>
+	
+	<a name="Events"></a>
+	<div style="height: 400px; background-color: #ffd600">
+		<h2 style="margin:0px">Events</h2>
+		<div align="center" style="padding-top:200px;">
+			Under Development...
+		</div>
+	</div>
+
+	<a name="Highlights"></a>
+	<div style="height: 400px; background-color: #8db925">
+		<h2 style="margin:0px">Highlights</h2>
+		<div align="center" style="padding-top:200px;">
+			Under Development...
+		</div>
+	</div>
+
+	
+	<a name="Quotes"></a>
+	<div style="height: 300px; background-color: darkcyan;padding-top: 105px;" align="center">
+			<h3 class="footerquote">"{{quoteMsg}}"</h3>
+				<br> - {{quoteAuthor}}
+	</div>
+	  
+	<div class="footerpanel">
+		<div class="row" style="height: 165px;">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
+				<ul>
+					<li><a href="#SpecialThanks">Special Thanks</a></li>
+					<li><a href="#Album">Album</a></li>
+					<li><a href="#Wishes">Wishes</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-2">
+				<ul>
+					<li><a href="#Events">Events</a></li>
+					<li><a href="#Quotes">Quotes</a></li>
+					<li><a href="#Videos">Videos</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-2">
+				<ul>
+					<li><a href="#Highlights">Highlights</a></li>
+					<li><a href="#FunEvents">Fun Events</a></li>
+					<li><a href="#ReachUs">Reach Us</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
+				<div align="right" style="margin-top: 80px; margin-right: 30px;">
+					<img src=".\imgs\01.jpg" class="footerrightconer" />
+					<img src=".\imgs\02.jpg" class="footerrightconer" />
+					<img src=".\imgs\03.jpg" class="footerrightconer" />
+					<img src=".\imgs\04.jpg" class="footerrightconer" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12" class="designpanel" align="center">
+			<div class="designcontent">
+				Designed & Developed by JS &copy; Copyright 2016
+			</div>
+			</div>
+		</div>
+	  </div>
