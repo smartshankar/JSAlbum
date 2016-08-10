@@ -14,6 +14,7 @@ import globalConfig = require('./globalsettings');
 export class AppComponent { 
 	submitAttempt: boolean = false;
 	isOtpFormEnabled: boolean = false;
+	isnewWishFormEnabled: boolean = true;
 	isNewWishPostedSuccess : boolean = false;
 	quoteMsg = 'Success is simple. Do what’s right, the right way, at the right time...';
 	quoteAuthor = 'Arnold H. Glasgow';
@@ -22,6 +23,7 @@ export class AppComponent {
 	albumServiceObj : AlbumService;
 	isloggedIn: Boolean;
 	largeAlbumImg = '';
+	createdOn: any = '';
 
 	username: Control;
 	emailid: Control;
@@ -93,9 +95,8 @@ export class AppComponent {
 			  wishmessage: this.wishmessage,
 			  otp: this.otp,
 		});
-	}
-	
-	clearNewWishForm(){
+		
+		this.resetNewWishForm();
 	}
 	
 	refreshBannerImg(){
@@ -133,6 +134,7 @@ export class AppComponent {
 			return;
 		}
 		
+		
 		this.albumServiceObj.postNewWish(newWish).subscribe(data => 
 								{
 									if(data != null && data.otp != null){
@@ -146,6 +148,15 @@ export class AppComponent {
 					);
 	}
 	
+	resetNewWishForm(){
+		for(var name in this.newwishform.controls) {
+			(<Control>this.newwishform.controls[name]).updateValue('');
+			this.newwishform.controls[name].setErrors(null);
+		}
+		this.isnewWishFormEnabled = true;
+		this.isOtpFormEnabled = false;
+	}
+	
 	validateOneTimePassword(){
 		if(this.otp.value == null || this.otp.value == ''){
 			this.otpValidateMsg = 'Please enter the OTP..';
@@ -157,8 +168,10 @@ export class AppComponent {
 									if(data != null){
 										if(data == 'Success'){
 											this.isNewWishPostedSuccess = true;
-											this.otpValidateMsg = 'Your wish posted successfully..!';
+											this.otpValidateMsg = '';
 											this.getFewRecentWish();
+											this.resetNewWishForm();
+											this.isnewWishFormEnabled = false;
 										}
 										if(data == 'InvalidOTP'){
 											this.otpValidateMsg = 'Invalid OTP...';
@@ -199,6 +212,15 @@ export class AppComponent {
 		var i = 1;
 		
 		for(var w in this.recentWishList){
+			
+			if(false && this.recentWishList[w] != null) {
+				//this.createdOn = this.recentWishList[w].createdOn;
+				if(this.createdOn != null && this.createdOn.length > 20){
+					var createdOnFormated = this.createdOn.substr(0, 10) + ' :: ' + this.createdOn.substr(11, 8);
+					//this.recentWishList[w].createdOn = createdOnFormated;
+				}
+			}
+			
 			if(i<=3){
 				this.wishRow1.push(this.recentWishList[w]);
 			}

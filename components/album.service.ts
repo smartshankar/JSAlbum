@@ -40,6 +40,9 @@ export class AlbumService{
 				 .map(response => response.json());
 	}
 	
+	postNewWish1(newWish: any){
+	}
+	
 	validateOTP(_id: any, otp: any){
 		  var body = "otp=" + otp + "&_id=" + _id;
 		  var firstheader = new Headers();

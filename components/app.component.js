@@ -19,11 +19,13 @@ var AppComponent = (function () {
         this.builder = builder;
         this.submitAttempt = false;
         this.isOtpFormEnabled = false;
+        this.isnewWishFormEnabled = true;
         this.isNewWishPostedSuccess = false;
         this.quoteMsg = 'Success is simple. Do what’s right, the right way, at the right time...';
         this.quoteAuthor = 'Arnold H. Glasgow';
         this.bannerImg = '';
         this.largeAlbumImg = '';
+        this.createdOn = '';
         this.onetimepwd = '';
         this.newWishStatusCode = '';
         this.otpValidateMsg = '';
@@ -70,8 +72,7 @@ var AppComponent = (function () {
             wishmessage: this.wishmessage,
             otp: this.otp,
         });
-    };
-    AppComponent.prototype.clearNewWishForm = function () {
+        this.resetNewWishForm();
     };
     AppComponent.prototype.refreshBannerImg = function () {
         var _this = this;
@@ -114,6 +115,14 @@ var AppComponent = (function () {
             }
         }, function (error) { return console.log('Error while posting new wish message... ' + error); });
     };
+    AppComponent.prototype.resetNewWishForm = function () {
+        for (var name in this.newwishform.controls) {
+            this.newwishform.controls[name].updateValue('');
+            this.newwishform.controls[name].setErrors(null);
+        }
+        this.isnewWishFormEnabled = true;
+        this.isOtpFormEnabled = false;
+    };
     AppComponent.prototype.validateOneTimePassword = function () {
         var _this = this;
         if (this.otp.value == null || this.otp.value == '') {
@@ -124,8 +133,10 @@ var AppComponent = (function () {
             if (data != null) {
                 if (data == 'Success') {
                     _this.isNewWishPostedSuccess = true;
-                    _this.otpValidateMsg = 'Your wish posted successfully..!';
+                    _this.otpValidateMsg = '';
                     _this.getFewRecentWish();
+                    _this.resetNewWishForm();
+                    _this.isnewWishFormEnabled = false;
                 }
                 if (data == 'InvalidOTP') {
                     _this.otpValidateMsg = 'Invalid OTP...';
@@ -153,6 +164,12 @@ var AppComponent = (function () {
         this.wishRow3 = new Array();
         var i = 1;
         for (var w in this.recentWishList) {
+            if (false && this.recentWishList[w] != null) {
+                //this.createdOn = this.recentWishList[w].createdOn;
+                if (this.createdOn != null && this.createdOn.length > 20) {
+                    var createdOnFormated = this.createdOn.substr(0, 10) + ' :: ' + this.createdOn.substr(11, 8);
+                }
+            }
             if (i <= 3) {
                 this.wishRow1.push(this.recentWishList[w]);
             }

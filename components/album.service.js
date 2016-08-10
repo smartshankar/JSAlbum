@@ -39,6 +39,8 @@ var AlbumService = (function () {
         return this.http.post(this.postwishurl, body, { headers: firstheader })
             .map(function (response) { return response.json(); });
     };
+    AlbumService.prototype.postNewWish1 = function (newWish) {
+    };
     AlbumService.prototype.validateOTP = function (_id, otp) {
         var body = "otp=" + otp + "&_id=" + _id;
         var firstheader = new http_1.Headers();
