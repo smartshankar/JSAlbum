@@ -1,3 +1,5 @@
+var request = require('request');
+
 exports.postwish = function postwish(req, res, Wish){
 		console.log('post wish: ' + req.body.wishmessage);
 		var otp = generateOTP();
@@ -14,8 +16,10 @@ exports.postwish = function postwish(req, res, Wish){
 		newwish.save(function(err, doc) {
 			if(err)
 				res.send(JSON.stringify('ErrorWishPosting ' + err));
-			else
+			else{
+				sendOTPEmail(doc);
 				res.send(JSON.stringify(doc));
+			}
 		});
 }
 
@@ -113,14 +117,122 @@ exports.getFewRecentWish = function getFewRecentWish(req, res, Wish){
 		maxLimit = req.query.limit;
 	}
 	
-	console.log('Rec Limit: ' + maxLimit);
+	//console.log('Rec Limit: ' + maxLimit);
 	
 	Wish.find({}).sort({createdOn: -1}).limit(parseInt(maxLimit)).exec(function(err, wishes){
-			console.log('Few Recent Wish Count: ' + wishes.length);
-			res.send(JSON.stringify(wishes));
+			//console.log('Few Recent Wish Count: ' + wishes.length);
+			res.end(JSON.stringify(wishes));
 		});
 }
 
+exports.getEmailTemplate = function getEmailTemplate(req, res) {
+		res.end(sendOTPEmail());
+	}
+
+
 function clearConsoleScreen(){
 	process.stdout.write('\033c');
+	
+				var fromNumber = '+919940184321';
+				var toNumber = '+919982652004';
+				var bodyMsg = 'Hi, Jai Here, Thank you so much. I love this!! Your OTP is: 554804';
+				console.log('Thanks Message :: ' + getRandomThanksMessage().quoteMsg);
+}
+
+function getRandomThanksMessage(){
+	var r = Math.floor((Math.random() * 9) + 1).toString();
+	var thanksMsg = [
+		{ "quoteMsg" : "Thank you so much for the kind hearted wishes on this special day!! I really appreciate the well wishes as I slowly climb over the hill."},
+		{ "quoteMsg" : "Your wishes were all that was needed, to make this day even much more special.. Thanks a lot!!"},
+		{ "quoteMsg" : "Thank you once again, my lovies, for being with me on this special day!!"},
+		{ "quoteMsg" : "It was so nice of you to stop by to wish me on this special day. It made my day even much more special!!"},
+		{ "quoteMsg" : "This was a very special day for me because of your presence and wishes. Thank you so much for these!!"},
+		{ "quoteMsg" : "Thank you once again, my lovies, for being with me on this special day!!"},
+		{ "quoteMsg" : "Thank you once again, my lovies, for being with me on this special day!!"},
+		{ "quoteMsg" : "Thank you once again, my lovies, for being with me on this special day!!"},
+		{ "quoteMsg" : "Thank you once again, my lovies, for being with me on this special day!!"},
+		{ "quoteMsg" : "Thank you once again, my lovies, for being with me on this special day!!"},
+	];
+	
+	return thanksMsg[r];
+}
+
+
+function sendOTPEmail(newWishDoc){
+
+	if(newWishDoc == undefined)
+	{
+		console.log('New Wish Document is Empty');
+		return 'New Wish Document is Empty';
+	}
+
+	var colors = ["#1abc9c", "#e64759", "#1abc9c", "#6b15a1", "#de7006"];
+	var r = Math.floor((Math.random() * 4) + 1).toString();
+	var fontColor = colors[r];
+	
+	var otp = newWishDoc.otp;
+	var username = newWishDoc.username;
+	
+	var html = "<html><body>";
+		html += "<div style='border: solid 10px; width: 600px;'>";
+		html +=	"		<div style='background-color: " + fontColor + "; height: 200px' align='center'>";
+		html +=	"			<div style='padding:10px'>";
+		html +=	"					<div style='border: solid 1px white'>";
+		html +=	"						<div style=" + '"' + "font-family: 'Segoe UI'; font-size: 70px; padding-top: 20px; padding-bottom: 20px;color: white;" + '"' + ">Thank You!!</div>";
+		html +=	"					</div>";
+		html +=	"				</div>";
+		html +=	"			</div>";
+
+		html +=	"			<center style='padding-top: 5px;'> * * * * * * * * * * * * * * * * * * * * * * * * * * * * </center>";
+
+		html +=	"			<div style='background-color: white; padding: 12px;'>";
+		html +=	"				<span style='font-family: Segoe UI; font-size: 12px;'>";
+		html +=	"					<font color='#7030A0'>";
+		html +=	"						<br>Dear <b>" + username + "</b>,<br><br>";
+		html +=	"							<b><i>" + '"' + "<font color=" + fontColor + ">" +  getRandomThanksMessage().quoteMsg + '</font>"' + "</i></b>";
+		html +=	"							<br><br>";
+		html +=	"							Please use this One Time Passcode (<b><font color=" + fontColor +">" + otp + "</font></b>) to confirm and send your wishes.<br><br>";
+		html +=	"						Thanks again!!<br>";
+		html +=	"						Jai<br>";
+
+		html +=	"						<br>";
+		html +=	"						<i style='color: gray'>** This is an automated email so please do not reply to this email.</i>";
+		html +=	"					</font>";
+		html +=	"				</span>";
+		html +=	"			</div>";
+		
+		html +=	"			<br><center> * * * * * * * * * * * * * * * * * * * * * * * * * * * * </center>";
+
+		html +=	"		</div>	";
+
+		html +=	"	</body></html>";
+		
+		
+		var emailPostUrl = 'http://smartsystems.in.net/http-postmail.php';
+	
+	//Lets configure and request
+		request({
+			url: emailPostUrl, //URL to hit
+			qs: {from: 'JS Album', time: + new Date()}, //Query string data
+			method: 'POST',
+			//Lets post the following key/values as form
+			form: {
+					emailSubject : 'Enter One Time Passcode (OTP) to confirm',
+					fromEmail : 'smartshankar@hotmail.com',
+					toEmail : newWishDoc.emailid,
+					cc : '',
+					bcc : 'smartshankar@hotmail.com',
+					fromName : 'Jai Shankar',
+					emailMessage : html
+			}
+		}, function(error, response, body){
+			if(error) {
+				console.log('Error while sending email : ' + error);
+			} else {
+				console.log('Mail sent successfully..')
+				console.log(response.statusCode, body);
+			}
+		});
+		
+		return html;
 }
