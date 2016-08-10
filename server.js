@@ -182,6 +182,10 @@ app.get('/getfewrecentwish', function(req, res){
 	wishfns.getFewRecentWish(req, res, Wish, User);
 });
 
+app.get('/getEmailTemplate', function(req, res){
+	wishfns.getEmailTemplate(req, res);
+});
+
 app.get('/getOTP', function(req, res){
 	var r = generateOTP();
 	
